@@ -1,5 +1,4 @@
 "use client";
-import { cn } from "@/lib/utils";
 import {
 	motion,
 	useMotionTemplate,
@@ -9,6 +8,7 @@ import {
 } from "motion/react";
 import type React from "react";
 import { useRef } from "react";
+import { cn } from "@/lib/utils";
 
 export const CometCard = ({
 	rotateDepth = 17.5,
