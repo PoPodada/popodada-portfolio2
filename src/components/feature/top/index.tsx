@@ -56,20 +56,21 @@ const Top = () => {
 
 }`;
 	return (
-		<div className="relative font-sans  justify-items-center min-h-screen   ">
+		<div className="relative font-sans  justify-items-center min-h-screen">
 			<div className="h-screen relative w-full overflow-hidden flex flex-col items-center justify-center rounded-lg">
 				<Boxes />
-				<main className="flex flex-col row-start-2 items-center sm:items-start">
+				{/* <main className="flex flex-col row-start-2 items-center sm:items-start"> */}
+				<div>
 					<CometCard>
 						<div
-							className="my-10 flex w-100 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-20 md:p-4"
+							className="flex flex-col w-[300px] sm:w-[500px]  max-w-full cursor-pointer rounded-[16px] border-0 bg-[#1F2121] "
 							style={{
 								transformStyle: "preserve-3d",
 								transform: "none",
 							}}
 						>
 							<div className="mx-2 flex-1">
-								<div className="mt-2 aspect-[4/4] w-full flex flex-col">
+								<div className="mt-2 s w-full flex flex-col">
 									<div className="flex justify-between">
 										<Avatar className="w-16 h-16">
 											<AvatarImage
@@ -105,7 +106,8 @@ const Top = () => {
 							</div>
 						</div>
 					</CometCard>
-				</main>
+				</div>
+				{/* </main> */}
 			</div>
 		</div>
 	);

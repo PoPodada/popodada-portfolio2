@@ -7,7 +7,7 @@ import {
 	useTransform,
 } from "motion/react";
 import type React from "react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useIsWideScreen } from "@/hooks/useIsWideScreeen";
 import { cn } from "@/lib/utils";
 
@@ -82,65 +82,62 @@ export const CometCard = ({
 		y.set(0);
 	};
 
-	useEffect(() => {
-		if (isWide) return; // PC時は何もしない
-
-		const handleOrientation = (event: DeviceOrientationEvent) => {
-			// gamma: 左右(-90~90), beta: 前後(-180~180)
-			const gamma = event.gamma ?? 0; // y軸
-			const beta = event.beta ?? 0; // x軸
-
-			// gamma: -45~45, beta: 0~90 くらいを想定して正規化
-			const xNorm = Math.max(-45, Math.min(45, gamma)) / 45; // -1 ~ 1
-			const yNorm = Math.max(-45, Math.min(45, beta - 45)) / 45; // -1 ~ 1
-
-			x.set(xNorm / 2); // -0.5 ~ 0.5
-			y.set(yNorm / 2); // -0.5 ~ 0.5
-		};
-
-		window.addEventListener("deviceorientation", handleOrientation, true);
-		return () => {
-			window.removeEventListener(
-				"deviceorientation",
-				handleOrientation,
-				true,
-			);
-		};
-	}, [isWide, x, y]);
-	// --- ここまで追加 ---
-
 	return (
 		<div className={cn("perspective-distant transform-3d", className)}>
-			<motion.div
-				ref={ref}
-				onMouseMove={handleMouseMove}
-				onMouseLeave={handleMouseLeave}
-				style={{
-					rotateX,
-					rotateY,
-					translateX,
-					translateY,
-					// boxShadow:
-					// 	"rgba(0, 0, 0, 0.01) 0px 520px 146px 0px, rgba(0, 0, 0, 0.04) 0px 333px 133px 0px, rgba(0, 0, 0, 0.26) 0px 83px 83px 0px, rgba(0, 0, 0, 0.29) 0px 21px 46px 0px",
-				}}
-				initial={{ scale: 1, z: 0 }}
-				whileHover={{
-					scale: 1.05,
-					z: 50,
-					transition: { duration: 0.2 },
-				}}
-				className="relative rounded-2xl"
-			>
-				{children}
+			{isWide ? (
 				<motion.div
-					className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
+					ref={ref}
+					onMouseMove={handleMouseMove}
+					onMouseLeave={handleMouseLeave}
 					style={{
-						background: glareBackground,
-						opacity: 0.6,
+						rotateX,
+						rotateY,
+						translateX,
+						translateY,
 					}}
-					transition={{ duration: 0.2 }}
-				/>
-			</motion.div>
+					initial={{ scale: 1, z: 0 }}
+					whileHover={{
+						scale: 1.05,
+						z: 50,
+						transition: { duration: 0.2 },
+					}}
+					className="relative rounded-2xl"
+				>
+					{children}
+					<motion.div
+						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
+						style={{
+							background: glareBackground,
+							opacity: 0.6,
+						}}
+						transition={{ duration: 0.2 }}
+					/>
+				</motion.div>
+			) : (
+				<motion.div
+					ref={ref}
+					onMouseMove={handleMouseMove}
+					onMouseLeave={handleMouseLeave}
+					style={{
+						rotateX,
+						rotateY,
+						translateX,
+						translateY,
+					}}
+					initial={{ scale: 1, z: 0 }}
+					className="relative rounded-2xl"
+				>
+					{children}
+					<motion.div
+						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
+						style={{
+							background: glareBackground,
+							opacity: 0.6,
+						}}
+						transition={{ duration: 0.2 }}
+					/>
+				</motion.div>
+			)}
 		</div>
 	);
 };
