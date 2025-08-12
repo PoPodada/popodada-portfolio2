@@ -8,7 +8,6 @@ import {
 } from "motion/react";
 import type React from "react";
 import { useRef } from "react";
-import { useIsWideScreen } from "@/hooks/useIsWideScreeen";
 import { cn } from "@/lib/utils";
 
 export const CometCard = ({
@@ -22,7 +21,6 @@ export const CometCard = ({
 	className?: string;
 	children: React.ReactNode;
 }) => {
-	const isWide = useIsWideScreen();
 	const ref = useRef<HTMLDivElement>(null);
 
 	const x = useMotionValue(0);
@@ -59,7 +57,6 @@ export const CometCard = ({
 	const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.9) 10%, rgba(255, 255, 255, 0.75) 20%, rgba(255, 255, 255, 0) 80%)`;
 
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		if (!isWide) return; // Skip if not wide screen
 		if (!ref.current) return;
 
 		const rect = ref.current.getBoundingClientRect();
@@ -84,60 +81,34 @@ export const CometCard = ({
 
 	return (
 		<div className={cn("perspective-distant transform-3d", className)}>
-			{isWide ? (
+			<motion.div
+				ref={ref}
+				onMouseMove={handleMouseMove}
+				onMouseLeave={handleMouseLeave}
+				style={{
+					rotateX,
+					rotateY,
+					translateX,
+					translateY,
+				}}
+				initial={{ scale: 1, z: 0 }}
+				whileHover={{
+					scale: 1.05,
+					z: 50,
+					transition: { duration: 0.2 },
+				}}
+				className="relative rounded-2xl"
+			>
+				{children}
 				<motion.div
-					ref={ref}
-					onMouseMove={handleMouseMove}
-					onMouseLeave={handleMouseLeave}
+					className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
 					style={{
-						rotateX,
-						rotateY,
-						translateX,
-						translateY,
+						background: glareBackground,
+						opacity: 0.6,
 					}}
-					initial={{ scale: 1, z: 0 }}
-					whileHover={{
-						scale: 1.05,
-						z: 50,
-						transition: { duration: 0.2 },
-					}}
-					className="relative rounded-2xl"
-				>
-					{children}
-					<motion.div
-						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
-						style={{
-							background: glareBackground,
-							opacity: 0.6,
-						}}
-						transition={{ duration: 0.2 }}
-					/>
-				</motion.div>
-			) : (
-				<motion.div
-					ref={ref}
-					onMouseMove={handleMouseMove}
-					onMouseLeave={handleMouseLeave}
-					style={{
-						rotateX,
-						rotateY,
-						translateX,
-						translateY,
-					}}
-					initial={{ scale: 1, z: 0 }}
-					className="relative rounded-2xl"
-				>
-					{children}
-					<motion.div
-						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
-						style={{
-							background: glareBackground,
-							opacity: 0.6,
-						}}
-						transition={{ duration: 0.2 }}
-					/>
-				</motion.div>
-			)}
+					transition={{ duration: 0.2 }}
+				/>
+			</motion.div>
 		</div>
 	);
 };
