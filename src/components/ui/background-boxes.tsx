@@ -1,7 +1,18 @@
 "use client";
 import { motion } from "motion/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+
+function useIsWideScreen(breakpoint = 640) {
+	const [isWide, setIsWide] = useState(true);
+	useEffect(() => {
+		const check = () => setIsWide(window.innerWidth >= breakpoint);
+		check();
+		window.addEventListener("resize", check);
+		return () => window.removeEventListener("resize", check);
+	}, [breakpoint]);
+	return isWide;
+}
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
 	const rows = new Array(150).fill(1);
@@ -20,6 +31,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
 	const getRandomColor = () => {
 		return colors[Math.floor(Math.random() * colors.length)];
 	};
+	const isWide = useIsWideScreen();
 
 	return (
 		<div
@@ -32,46 +44,83 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
 			)}
 			{...rest}
 		>
-			{rows.map((_, i) => (
-				<motion.div
-					// biome-ignore lint: 入れ替えは発生しないのでindexをkeyに設定.
-					key={`row` + i}
-					className="relative h-8 w-16 border-l border-slate-700"
-				>
-					{cols.map((_, j) => (
+			{isWide
+				? rows.map((_, i) => (
 						<motion.div
-							whileHover={{
-								backgroundColor: `${getRandomColor()}`,
-								transition: { duration: 0 },
-							}}
-							animate={{
-								transition: { duration: 2 },
-							}}
 							// biome-ignore lint: 入れ替えは発生しないのでindexをkeyに設定.
-							key={`col` + j}
-							className="relative h-8 w-16 border-t border-r border-slate-700"
+							key={`row` + i}
+							className="relative h-8 w-16 border-l border-slate-700"
 						>
-							{j % 2 === 0 && i % 2 === 0 ? (
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									strokeWidth="1.5"
-									stroke="currentColor"
-									className="pointer-events-none absolute -top-[14px] -left-[22px] h-6 w-10 stroke-[1px] text-slate-700"
-									aria-hidden="true"
+							{cols.map((_, j) => (
+								<motion.div
+									whileHover={{
+										backgroundColor: `${getRandomColor()}`,
+										transition: { duration: 0 },
+									}}
+									animate={{
+										transition: { duration: 2 },
+									}}
+									// biome-ignore lint: 入れ替えは発生しないのでindexをkeyに設定.
+									key={`col` + j}
+									className="relative h-8 w-16 border-t border-r border-slate-700"
 								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										d="M12 6v12m6-6H6"
-									/>
-								</svg>
-							) : null}
+									{j % 2 === 0 && i % 2 === 0 ? (
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											strokeWidth="1.5"
+											stroke="currentColor"
+											className="pointer-events-none absolute -top-[14px] -left-[22px] h-6 w-10 stroke-[1px] text-slate-700"
+											aria-hidden="true"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M12 6v12m6-6H6"
+											/>
+										</svg>
+									) : null}
+								</motion.div>
+							))}
+						</motion.div>
+					))
+				: rows.map((_, i) => (
+						<motion.div
+							// biome-ignore lint: 入れ替えは発生しないのでindexをkeyに設定.
+							key={`row` + i}
+							className="relative h-8 w-16 border-l border-slate-700"
+						>
+							{cols.map((_, j) => (
+								<motion.div
+									animate={{
+										transition: { duration: 2 },
+									}}
+									// biome-ignore lint: 入れ替えは発生しないのでindexをkeyに設定.
+									key={`col` + j}
+									className="relative h-8 w-16 border-t border-r border-slate-700"
+								>
+									{j % 2 === 0 && i % 2 === 0 ? (
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+											strokeWidth="1.5"
+											stroke="currentColor"
+											className="pointer-events-none absolute -top-[14px] -left-[22px] h-6 w-10 stroke-[1px] text-slate-700"
+											aria-hidden="true"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												d="M12 6v12m6-6H6"
+											/>
+										</svg>
+									) : null}
+								</motion.div>
+							))}
 						</motion.div>
 					))}
-				</motion.div>
-			))}
 		</div>
 	);
 };
