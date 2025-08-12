@@ -1,5 +1,6 @@
+import Image from "next/image";
 import { LinkButton } from "@/components/link-button/link-button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Boxes } from "@/components/ui/background-boxes";
 import { CodeBlock } from "@/components/ui/code-block";
 import { CometCard } from "@/components/ui/comet-card";
@@ -73,9 +74,13 @@ const Top = () => {
 								<div className="mt-2 s w-full flex flex-col">
 									<div className="flex justify-between">
 										<Avatar className="w-16 h-16">
-											<AvatarImage
+											<Image
 												src="https://github.com/PoPodada.png"
 												alt="@shadcn"
+												className="w-16 h-16"
+												width="64"
+												height="64"
+												priority
 											/>
 											<AvatarFallback></AvatarFallback>
 										</Avatar>
