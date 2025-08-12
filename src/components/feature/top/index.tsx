@@ -76,7 +76,7 @@ const Top = () => {
 												src="https://github.com/PoPodada.png"
 												alt="@shadcn"
 											/>
-											<AvatarFallback>CN</AvatarFallback>
+											<AvatarFallback></AvatarFallback>
 										</Avatar>
 										<div>
 											<LinkButton

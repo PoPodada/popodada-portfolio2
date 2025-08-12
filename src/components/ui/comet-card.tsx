@@ -7,7 +7,8 @@ import {
 	useTransform,
 } from "motion/react";
 import type React from "react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { useIsWideScreen } from "@/hooks/useIsWideScreeen";
 import { cn } from "@/lib/utils";
 
 export const CometCard = ({
@@ -21,6 +22,7 @@ export const CometCard = ({
 	className?: string;
 	children: React.ReactNode;
 }) => {
+	const isWide = useIsWideScreen();
 	const ref = useRef<HTMLDivElement>(null);
 
 	const x = useMotionValue(0);
@@ -57,6 +59,7 @@ export const CometCard = ({
 	const glareBackground = useMotionTemplate`radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255, 255, 255, 0.9) 10%, rgba(255, 255, 255, 0.75) 20%, rgba(255, 255, 255, 0) 80%)`;
 
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!isWide) return; // Skip if not wide screen
 		if (!ref.current) return;
 
 		const rect = ref.current.getBoundingClientRect();
@@ -78,6 +81,33 @@ export const CometCard = ({
 		x.set(0);
 		y.set(0);
 	};
+
+	useEffect(() => {
+		if (isWide) return; // PC時は何もしない
+
+		const handleOrientation = (event: DeviceOrientationEvent) => {
+			// gamma: 左右(-90~90), beta: 前後(-180~180)
+			const gamma = event.gamma ?? 0; // y軸
+			const beta = event.beta ?? 0; // x軸
+
+			// gamma: -45~45, beta: 0~90 くらいを想定して正規化
+			const xNorm = Math.max(-45, Math.min(45, gamma)) / 45; // -1 ~ 1
+			const yNorm = Math.max(-45, Math.min(45, beta - 45)) / 45; // -1 ~ 1
+
+			x.set(xNorm / 2); // -0.5 ~ 0.5
+			y.set(yNorm / 2); // -0.5 ~ 0.5
+		};
+
+		window.addEventListener("deviceorientation", handleOrientation, true);
+		return () => {
+			window.removeEventListener(
+				"deviceorientation",
+				handleOrientation,
+				true,
+			);
+		};
+	}, [isWide, x, y]);
+	// --- ここまで追加 ---
 
 	return (
 		<div className={cn("perspective-distant transform-3d", className)}>

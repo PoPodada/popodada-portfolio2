@@ -1,18 +1,8 @@
 "use client";
 import { motion } from "motion/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useIsWideScreen } from "@/hooks/useIsWideScreeen";
 import { cn } from "@/lib/utils";
-
-function useIsWideScreen(breakpoint = 640) {
-	const [isWide, setIsWide] = useState(true);
-	useEffect(() => {
-		const check = () => setIsWide(window.innerWidth >= breakpoint);
-		check();
-		window.addEventListener("resize", check);
-		return () => window.removeEventListener("resize", check);
-	}, [breakpoint]);
-	return isWide;
-}
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
 	const rows = new Array(150).fill(1);
