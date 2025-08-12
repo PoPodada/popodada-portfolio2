@@ -1,5 +1,5 @@
-import Top from "../components/feature/top";
+import Top from "@/components/feature/top";
 
-export default function Home() {
+export default function Page() {
 	return <Top />;
 }

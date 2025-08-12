@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { LinkButton } from "@/components/link-button/link-button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Boxes } from "@/components/ui/background-boxes";
 import { CodeBlock } from "@/components/ui/code-block";
 import { CometCard } from "@/components/ui/comet-card";
 
@@ -57,64 +56,55 @@ const Top = () => {
 
 }`;
 	return (
-		<div className="relative font-sans  justify-items-center min-h-screen">
-			<div className="h-screen relative w-full overflow-hidden flex flex-col items-center justify-center rounded-lg">
-				<Boxes />
-				{/* <main className="flex flex-col row-start-2 items-center sm:items-start"> */}
-				<div>
-					<CometCard>
-						<div
-							className="flex flex-col w-[300px] sm:w-[500px]  max-w-full cursor-pointer rounded-[16px] border-0 bg-[#1F2121] "
-							style={{
-								transformStyle: "preserve-3d",
-								transform: "none",
-							}}
-						>
-							<div className="mx-2 flex-1">
-								<div className="mt-2 s w-full flex flex-col">
-									<div className="flex justify-between">
-										<Avatar className="w-16 h-16">
-											<Image
-												src="https://github.com/PoPodada.png"
-												alt="@shadcn"
-												className="w-16 h-16"
-												width="64"
-												height="64"
-												priority
-											/>
-											<AvatarFallback></AvatarFallback>
-										</Avatar>
-										<div>
-											<LinkButton
-												type="github"
-												href="https://github.com/PoPodada"
-											/>
-											<LinkButton
-												type="x"
-												href="https://x.com/PButabara"
-											/>
-										</div>
-									</div>
-									<div className="mt-2 flex justify-center items-center flex-1">
-										<CodeBlock
-											language="json"
-											filename="profile.json"
-											code={code}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="mt-2 flex flex-shrink-0 items-center justify-between p-4 font-mono text-white">
-								<div className="text-xs text-gray-300 opacity-50">
-									#F7RA
-								</div>
+		<CometCard>
+			<div
+				className="flex flex-col w-[300px] sm:w-[500px]  max-w-full cursor-pointer rounded-[16px] border-0 bg-[#1F2121] "
+				style={{
+					transformStyle: "preserve-3d",
+					transform: "none",
+				}}
+			>
+				<div className="mx-2 flex-1">
+					<div className="mt-2 s w-full flex flex-col">
+						<div className="flex justify-between">
+							<Avatar className="w-16 h-16">
+								<Image
+									src="https://github.com/PoPodada.png"
+									alt="@shadcn"
+									className="w-16 h-16"
+									width="64"
+									height="64"
+									priority
+								/>
+								<AvatarFallback></AvatarFallback>
+							</Avatar>
+							<div>
+								<LinkButton
+									type="github"
+									href="https://github.com/PoPodada"
+								/>
+								<LinkButton
+									type="x"
+									href="https://x.com/PButabara"
+								/>
 							</div>
 						</div>
-					</CometCard>
+						<div className="mt-2 flex justify-center items-center flex-1">
+							<CodeBlock
+								language="json"
+								filename="profile.json"
+								code={code}
+							/>
+						</div>
+					</div>
 				</div>
-				{/* </main> */}
+				<div className="mt-2 flex flex-shrink-0 items-center justify-between p-4 font-mono text-white">
+					<div className="text-xs text-gray-300 opacity-50">
+						#F7RA
+					</div>
+				</div>
 			</div>
-		</div>
+		</CometCard>
 	);
 };
 
