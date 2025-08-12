@@ -8,22 +8,22 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 			<div className="h-screen relative w-full overflow-hidden flex flex-col items-center justify-center rounded-lg">
 				<Boxes />
 				<div className="absolute top-20 z-20">
-					<Button
-						className="mr-2 ml-2 w-16 bg-[#171717]"
-						variant="outline"
-					>
-						<Link className="text-white" href="/">
+					<Link className="text-white" href="/" passHref>
+						<Button
+							className="mr-2 ml-2 w-16 bg-[#171717]"
+							variant="outline"
+						>
 							top
-						</Link>
-					</Button>
-					<Button
-						className="mr-2 ml-2 w-16 bg-[#171717]"
-						variant="outline"
-					>
-						<Link className="text-white" href="/posts">
+						</Button>
+					</Link>
+					<Link className="text-white" href="/posts" passHref>
+						<Button
+							className="mr-2 ml-2 w-16 bg-[#171717]"
+							variant="outline"
+						>
 							posts
-						</Link>
-					</Button>
+						</Button>
+					</Link>
 					{/* <Button
 						className="mr-2 ml-2 w-16 bg-[#171717]"
 						variant="outline"
