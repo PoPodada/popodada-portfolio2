@@ -29,7 +29,12 @@ const SNS_CONFIG = {
 export const LinkButton = ({ type, href }: Props) => {
 	const config = SNS_CONFIG[type];
 	return (
-		<Button className="ml-1" variant="outline" size="icon" asChild>
+		<Button
+			className="ml-1 bg-[#171717]"
+			variant="outline"
+			size="icon"
+			asChild
+		>
 			<Link href={href}>
 				<Image
 					src={config.image}
