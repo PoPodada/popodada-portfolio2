@@ -8,6 +8,7 @@ import {
 } from "motion/react";
 import type React from "react";
 import { useRef } from "react";
+import { useIsWideScreen } from "@/hooks/useIsWideScreeen";
 import { cn } from "@/lib/utils";
 
 export const CometCard = ({
@@ -22,6 +23,7 @@ export const CometCard = ({
 	children: React.ReactNode;
 }) => {
 	const ref = useRef<HTMLDivElement>(null);
+	const isWide = useIsWideScreen();
 
 	const x = useMotionValue(0);
 	const y = useMotionValue(0);
@@ -100,14 +102,21 @@ export const CometCard = ({
 				className="relative rounded-2xl"
 			>
 				{children}
-				<motion.div
-					className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
-					style={{
-						background: glareBackground,
-						opacity: 0.6,
-					}}
-					transition={{ duration: 0.2 }}
-				/>
+				{isWide ? (
+					<motion.div
+						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
+						style={{
+							background: glareBackground,
+							opacity: 0.6,
+						}}
+						transition={{ duration: 0.2 }}
+					/>
+				) : (
+					<motion.div
+						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
+						transition={{ duration: 0.2 }}
+					/>
+				)}
 			</motion.div>
 		</div>
 	);
