@@ -83,26 +83,26 @@ export const CometCard = ({
 
 	return (
 		<div className={cn("perspective-distant transform-3d", className)}>
-			<motion.div
-				ref={ref}
-				onMouseMove={handleMouseMove}
-				onMouseLeave={handleMouseLeave}
-				style={{
-					rotateX,
-					rotateY,
-					translateX,
-					translateY,
-				}}
-				initial={{ scale: 1, z: 0 }}
-				whileHover={{
-					scale: 1.05,
-					z: 50,
-					transition: { duration: 0.2 },
-				}}
-				className="relative rounded-2xl"
-			>
-				{children}
-				{isWide ? (
+			{isWide ? (
+				<motion.div
+					ref={ref}
+					onMouseMove={handleMouseMove}
+					onMouseLeave={handleMouseLeave}
+					style={{
+						rotateX,
+						rotateY,
+						translateX,
+						translateY,
+					}}
+					initial={{ scale: 1, z: 0 }}
+					whileHover={{
+						scale: 1.05,
+						z: 50,
+						transition: { duration: 0.2 },
+					}}
+					className="relative rounded-2xl"
+				>
+					{children}
 					<motion.div
 						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
 						style={{
@@ -111,13 +111,27 @@ export const CometCard = ({
 						}}
 						transition={{ duration: 0.2 }}
 					/>
-				) : (
+				</motion.div>
+			) : (
+				<motion.div
+					ref={ref}
+					style={{
+						rotateX,
+						rotateY,
+						translateX,
+						translateY,
+					}}
+					initial={{ scale: 1, z: 0 }}
+					className="relative rounded-2xl"
+				>
+					{children}
+
 					<motion.div
 						className="pointer-events-none absolute inset-0 z-50 h-full w-full rounded-[16px] mix-blend-overlay"
 						transition={{ duration: 0.2 }}
 					/>
-				)}
-			</motion.div>
+				</motion.div>
+			)}
 		</div>
 	);
 };
