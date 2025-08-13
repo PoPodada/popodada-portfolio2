@@ -11,7 +11,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 					<Link href="/">
 						{/* className="text-white" */}
 						<Button
-							className="mr-2 ml-2 w-16 bg-[#171717]"
+							className="mr-2 ml-2 w-16 bg-[#171717] text-white"
 							variant="outline"
 						>
 							top
@@ -20,7 +20,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
 					<Link href="/posts">
 						<Button
-							className="mr-2 ml-2 w-16 bg-[#171717]"
+							className="mr-2 ml-2 w-16 bg-[#171717] text-white"
 							variant="outline"
 						>
 							posts
