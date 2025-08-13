@@ -1,6 +1,6 @@
 import { Boxes } from "@/components/ui/background-boxes";
 import { Button } from "@/components/ui/button";
-import { TransitionLink } from "./TransitionLink";
+import { Link } from "@/lib/viewTransition/Link";
 
 const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
@@ -8,7 +8,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 			<div className="h-screen relative w-full overflow-hidden flex flex-col items-center justify-center rounded-lg">
 				<Boxes />
 				<div className="absolute top-20 z-20">
-					<TransitionLink href="/">
+					<Link href="/">
 						{/* className="text-white" */}
 						<Button
 							className="mr-2 ml-2 w-16 bg-[#171717]"
@@ -16,16 +16,16 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 						>
 							top
 						</Button>
-					</TransitionLink>
+					</Link>
 
-					<TransitionLink href="/posts">
+					<Link href="/posts">
 						<Button
 							className="mr-2 ml-2 w-16 bg-[#171717]"
 							variant="outline"
 						>
 							posts
 						</Button>
-					</TransitionLink>
+					</Link>
 
 					{/* <Button
 						className="mr-2 ml-2 w-16 bg-[#171717]"
