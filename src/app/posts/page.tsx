@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/lib/viewTransition/Link";
 
 const Page = () => {
 	return (

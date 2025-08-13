@@ -9,10 +9,11 @@ import NextLink from "next/link";
 import { useViewTransitionRouter } from "./useViewTransitionRouter";
 
 export function Link<T extends string = string>({
+	className,
 	children,
 	href,
 	...props
-}: LinkProps<T> & { children: React.ReactNode; href: T }) {
+}: LinkProps<T> & { className?: string; children: React.ReactNode; href: T }) {
 	const router = useViewTransitionRouter();
 
 	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -22,7 +23,12 @@ export function Link<T extends string = string>({
 	};
 
 	return (
-		<NextLink {...props} href={href} onClick={handleLinkClick}>
+		<NextLink
+			className={className}
+			{...props}
+			href={href}
+			onClick={handleLinkClick}
+		>
 			{children}
 		</NextLink>
 	);
