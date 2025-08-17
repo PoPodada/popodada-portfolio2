@@ -3,7 +3,6 @@ import { Link } from "@/lib/viewTransition/Link";
 
 const Page = async () => {
 	const posts = await getAllBlogPosts();
-	console.log(posts);
 	return (
 		<ul>
 			{posts.map((post) => (
@@ -13,11 +12,6 @@ const Page = async () => {
 					</Link>
 				</li>
 			))}
-			{/* <li>
-				<Link className="z-10" href="/posts/welcome">
-					Welcome
-				</Link>
-			</li> */}
 		</ul>
 	);
 };
