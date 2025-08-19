@@ -11,7 +11,7 @@ export default function Layout({
 				width: "calc(100vw - 32px)",
 			}}
 		>
-			<div className="w-[300px] sm:w-[500px]">{children}</div>
+			<div className="w-[500px] sm:w-[800px]">{children}</div>
 		</div>
 	);
 }
