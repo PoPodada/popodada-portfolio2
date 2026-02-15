@@ -1,4 +1,4 @@
-import { Boxes } from "@/components/ui/background-boxes";
+// import { Boxes } from "@/components/ui/background-boxes";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/lib/viewTransition/Link";
 
@@ -6,7 +6,7 @@ const MainLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 	return (
 		<div className="relative font-sans  justify-items-center min-h-screen">
 			<div className="h-screen relative w-full overflow-hidden flex flex-col items-center justify-center rounded-lg">
-				<Boxes />
+				{/* <Boxes /> */}
 				<div className="absolute top-20 z-20">
 					<Link href="/">
 						{/* className="text-white" */}
